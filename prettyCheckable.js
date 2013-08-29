@@ -12,8 +12,7 @@
       defaults = {
         label: '',
         labelPosition: 'right',
-        customClass: '',
-        color: 'blue'
+        customClass: ''
       };
 
     function Plugin( element, options ) {
@@ -40,14 +39,21 @@
             var fakeCheckable = $(clickedParent).find('a');
             var input = clickedParent.find('input');
             var isChecked = input.prop('checked');
+            var isDisabled = input.prop('disabled');
 
             if (isChecked === true) {
 
               fakeCheckable.addClass('checked');
+              if (isDisabled){
+                fakeCheckable.addClass('disabled');
+              }
 
             } else {
 
               fakeCheckable.removeClass('checked');
+              if (isDisabled){
+                fakeCheckable.removeClass('disabled');
+              }
 
             }
 
@@ -115,6 +121,7 @@
 
       });
 
+
     }
 
     Plugin.prototype.init = function () {
@@ -133,11 +140,9 @@
 
       var customClass = el.data('customclass') !== undefined ? el.data('customclass') : this.options.customClass;
 
-      var color =  el.data('color') !== undefined ? el.data('color') : this.options.color;
-
       var disabled = el.prop('disabled') === true ? 'disabled' : '';
 
-      var containerClasses = ['pretty' + classType, labelPosition, customClass, color, disabled].join(' ');
+      var containerClasses = ['pretty' + classType, labelPosition, customClass, disabled].join(' ');
 
       el.wrap('<div class="clearfix ' + containerClasses + '"></div>').parent().html();
 
