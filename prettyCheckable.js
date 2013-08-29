@@ -121,6 +121,13 @@
 
       });
 
+      element.find('a').hover(function(e){
+        $(this).addClass("focus");
+      },
+      function(e){
+        $(this).removeClass("focus");
+      });
+
 
     }
 
